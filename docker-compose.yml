@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  sk_task_mongodb:
+    container_name: sk_task_mongodb
+    image: mongo:8.0.3
+    restart: always
+    ports:
+      - 27777:27017
+    volumes:
+      - ./.docker/mongodb:/data/db
+
+  sk_task_backend:
+    container_name: sk_task_backend
+    build:
+      context: ./backend
+    image: sk_test/backend:latest
+    restart: always
+    env_file: ./.env.backend
+    ports:
+      - 8387:8080
+    depends_on:
+      - sk_task_mongodb
+
+  sk_task_frontend:
+    container_name: sk_task_frontend
+    build:
+      context: ./frontend
+    image: sk_test/frontend:latest
+    restart: always
+    environment:
+      - REACT_APP_PRICE_API_URL=http://localhost:8387
+    ports:
+      - 3000:3000
