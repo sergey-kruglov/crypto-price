@@ -2,7 +2,7 @@ import { ConfigService } from '@nestjs/config';
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppConfigService } from './app-config.service';
 
-const ENV = {
+const ENV: Record<string, string> = {
   HOST: 'localhost',
   PORT: '5050',
   API_KEY__COIN_MARKET_CAP: 'API_KEY__COIN_MARKET_CAP',

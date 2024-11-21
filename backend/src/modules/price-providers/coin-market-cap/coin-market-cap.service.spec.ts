@@ -14,7 +14,7 @@ describe('CoinMarketCapService', () => {
         {
           provide: HttpService,
           useValue: {
-            get: (fromCurrency) =>
+            get: (fromCurrency: string) =>
               fromCurrency
                 ? of({
                     data: {
